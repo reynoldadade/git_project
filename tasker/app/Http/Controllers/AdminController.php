@@ -13,8 +13,19 @@ Class AdminController extends Controller{
 	}
 
 
+	public function getLogout(){
+		Auth::logout();
+		return redirect()->route('index');
+	
+	}
+
 
 	public function getDashboard(){
+
+		if (!Auth::check()){
+
+			return redirect()->back();
+		}
 		$authors =Author::all();
 		return view('admin.dashboard',['authors'=>$authors]);
 	}
